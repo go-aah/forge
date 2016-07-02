@@ -3,8 +3,11 @@ forge
 
 [![Build Status](https://travis-ci.org/go-aah/forge.svg?branch=master)](https://travis-ci.org/go-aah/forge)
 [![GoDoc](https://godoc.org/github.com/go-aah/forge?status.svg)](https://godoc.org/github.com/go-aah/forge)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-Forge is a configuration syntax and parser.
+Forge is a configuration syntax and parser forked for [aah framework](https://github.com/go-aah).
+
+aah framework supports Go 1.5 and above.
 
 ## Installation
 
