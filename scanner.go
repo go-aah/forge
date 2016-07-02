@@ -5,7 +5,7 @@ import (
 	"io"
 	"strings"
 
-	"github.com/brettlangdon/forge/token"
+	"github.com/go-aah/forge/token"
 )
 
 var eof = rune(0)
@@ -97,6 +97,18 @@ func (scanner *Scanner) parseIdentifier() {
 		scanner.curTok.ID = token.NULL
 	} else if isInclude(scanner.curTok.Literal) {
 		scanner.curTok.ID = token.INCLUDE
+	}
+}
+
+func (scanner *Scanner) parseEnvironment() {
+	scanner.curTok.ID = token.ENVIRONMENT
+	scanner.curTok.Literal = ""
+	for {
+		scanner.readRune()
+		if !isLetter(scanner.curCh) && scanner.curCh != '_' {
+			break
+		}
+		scanner.curTok.Literal += string(scanner.curCh)
 	}
 }
 
@@ -204,6 +216,8 @@ func (scanner *Scanner) NextToken() token.Token {
 		scanner.parseNumber(false)
 	case ch == '#':
 		scanner.parseComment()
+	case ch == '$':
+		scanner.parseEnvironment()
 	case ch == eof:
 		scanner.curTok.ID = token.EOF
 		scanner.curTok.Literal = "EOF"

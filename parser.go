@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"github.com/brettlangdon/forge/token"
+	"github.com/go-aah/forge/token"
 )
 
 func isSemicolonOrNewline(id token.TokenID) bool {
@@ -185,6 +185,9 @@ func (parser *Parser) parseSettingValue() (Value, error) {
 		}
 		value = reference
 		readNext = false
+	case token.ENVIRONMENT:
+		var envVal = os.Getenv(parser.curTok.Literal)
+		value = NewString(envVal)
 	case token.LBRACKET:
 		parser.readToken()
 		listVal, err := parser.parseList()

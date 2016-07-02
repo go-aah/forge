@@ -42,7 +42,8 @@
 //     FLOAT: ('-')? NUMBERS '.' NUMBERS
 //     STRING: ['"] .* ['"]
 //     REFERENCE: (IDENTIFIER)? ('.' IDENTIFIER)+
-//     VALUE: BOOL | NULL | INTEGER | FLOAT | STRING | REFERENCE
+//     ENVIRONMENT: '$' IDENTIFIER
+//     VALUE: BOOL | NULL | INTEGER | FLOAT | STRING | REFERENCE | ENVIRONMENT
 //     LIST: '[' (VALUE | LIST) (',' NEWLINE* (VALUE | LIST))+ ']'
 //
 //     INCLUDE: 'include ' STRING END
@@ -74,6 +75,10 @@
 //  * Local reference:
 //      An identifier which main contain periods which starts with a period, the references
 //      are resolved from the settings current section (e.g. .value, .sub_section.value)
+//  * Environment:
+//      An environment is a way to pull in environment variables into your config. Environment variables
+//      are identifiers which start with a dollar sign (e.g. $PATH). Environment variables are always
+//      represented as strings and are evaluated at parse time.
 //
 // Directives
 //  * Comment:
@@ -99,6 +104,9 @@ import (
 	"io"
 	"strings"
 )
+
+// Version represent current release version of forge.
+var Version = "v0.3.0"
 
 // ParseBytes takes a []byte representation of the config file, parses it
 // and responds with `*Section` and potentially an `error` if it cannot
