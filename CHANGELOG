@@ -1,3 +1,11 @@
+**v0.3.0**	2016-07-02	Jeevanandam M <jeeva@myjeeva.com>
+* Forked `github.com/brettlangdon/forge` into `go-aah` org, please refer [here](https://github.com/brettlangdon/forge/issues/13#issuecomment-229080913) why?
+* Merged PR [brettlangdon/forge#19](https://github.com/brettlangdon/forge/pull/19/files) from upstream and made required changes
+* Version bumped for merging new feature environment variable support
+* I'm continuing version number to honor his efforts made nice library `forge` which is similar to `HOCON` syntax but forge direction is different :)
+
+-----
+
 2016-02-26  Brett Langdon  <me@brett.is>
 
 	* v0.2.0: Fix bug with parsing of lists without ending semicolon

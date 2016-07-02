@@ -1,18 +1,14 @@
 forge
 =====
 
-[![Build Status](https://travis-ci.org/brettlangdon/forge.svg?branch=master)](https://travis-ci.org/brettlangdon/forge)
-[![GoDoc](https://godoc.org/github.com/brettlangdon/forge?status.svg)](https://godoc.org/github.com/brettlangdon/forge)
+[![Build Status](https://travis-ci.org/go-aah/forge.svg?branch=master)](https://travis-ci.org/go-aah/forge)
+[![GoDoc](https://godoc.org/github.com/go-aah/forge?status.svg)](https://godoc.org/github.com/go-aah/forge)
 
 Forge is a configuration syntax and parser.
 
 ## Installation
 
-`go get github.com/brettlangdon/forge`
-
-## Documentation
-
-Documentation can be viewed on godoc: https://godoc.org/github.com/brettlangdon/forge
+`go get -u github.com/go-aah/forge`
 
 ## Example
 
@@ -23,6 +19,7 @@ You can see example usage in the `example` folder.
 
 # Global directives
 global = "global value";
+
 # Pull in the "PATH" environment variable
 path_env = $PATH;
 
