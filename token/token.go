@@ -33,6 +33,7 @@ const (
 	PERIOD
 
 	IDENTIFIER
+	ENVIRONMENT
 	BOOLEAN
 	INTEGER
 	FLOAT
@@ -43,25 +44,26 @@ const (
 )
 
 var tokenNames = [...]string{
-	ILLEGAL:    "ILLEGAL",
-	EOF:        "EOF",
-	LBRACE:     "LBRACE",
-	RBRACE:     "RBRACE",
-	LBRACKET:   "LBRACKET",
-	RBRACKET:   "RBRACKET",
-	EQUAL:      "EQUAL",
-	SEMICOLON:  "SEMICOLON",
-	NEWLINE:    "NEWLINE",
-	COMMA:      "COMMA",
-	PERIOD:     "PERIOD",
-	IDENTIFIER: "IDENTIFIER",
-	BOOLEAN:    "BOOLEAN",
-	INTEGER:    "INTEGER",
-	FLOAT:      "FLOAT",
-	STRING:     "STRING",
-	NULL:       "NULL",
-	COMMENT:    "COMMENT",
-	INCLUDE:    "INCLUDE",
+	ILLEGAL:     "ILLEGAL",
+	EOF:         "EOF",
+	LBRACE:      "LBRACE",
+	RBRACE:      "RBRACE",
+	LBRACKET:    "LBRACKET",
+	RBRACKET:    "RBRACKET",
+	EQUAL:       "EQUAL",
+	SEMICOLON:   "SEMICOLON",
+	NEWLINE:     "NEWLINE",
+	COMMA:       "COMMA",
+	PERIOD:      "PERIOD",
+	IDENTIFIER:  "IDENTIFIER",
+	ENVIRONMENT: "ENVIRONMENT",
+	BOOLEAN:     "BOOLEAN",
+	INTEGER:     "INTEGER",
+	FLOAT:       "FLOAT",
+	STRING:      "STRING",
+	NULL:        "NULL",
+	COMMENT:     "COMMENT",
+	INCLUDE:     "INCLUDE",
 }
 
 func (this TokenID) String() string {

@@ -3,9 +3,10 @@ package forge_test
 import (
 	"bytes"
 	"fmt"
+	"os"
 	"testing"
 
-	"github.com/brettlangdon/forge"
+	"github.com/go-aah/forge"
 )
 
 var testConfigBytes = []byte(`
@@ -57,11 +58,14 @@ secondary {
   primary_sub_key = primary.sub.key;
   another_again = .another;  # References secondary.another
   _under = 50;
+  path = $PATH;
 }
 `)
 
 var testConfigString = string(testConfigBytes)
 var testConfigReader = bytes.NewReader(testConfigBytes)
+
+var expectedPath = os.Getenv("PATH")
 
 func assertEqual(a interface{}, b interface{}, t *testing.T) {
 	if a != b {
@@ -109,6 +113,7 @@ func assertDirectives(values map[string]interface{}, t *testing.T) {
 	assertEqual(secondary["primary_sub_key"], "primary sub key value", t)
 	assertEqual(secondary["another_again"], "secondary another value", t)
 	assertEqual(secondary["_under"], int64(50), t)
+	assertEqual(secondary["path"], expectedPath, t)
 }
 
 func TestParseBytes(t *testing.T) {
