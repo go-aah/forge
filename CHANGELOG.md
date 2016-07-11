@@ -1,3 +1,6 @@
+**v0.3.1** 2016-07-02 Jeevanandam M <jeeva@myjeeva.com> (Upstream refresh from v0.2.1)
+* Add new `func (*Section) Merge` to merge multiple `Section`s together.
+
 **v0.3.0**	2016-07-02	Jeevanandam M <jeeva@myjeeva.com>
 * Forked `github.com/brettlangdon/forge` into `go-aah` org, please refer [here](https://github.com/brettlangdon/forge/issues/13#issuecomment-229080913) why?
 * Merged PR [brettlangdon/forge#19](https://github.com/brettlangdon/forge/pull/19/files) from upstream and made required changes
