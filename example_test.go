@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/go-aah/forge"
+	"aahframework.org/forge"
 )
 
 func Example() {

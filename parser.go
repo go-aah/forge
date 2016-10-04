@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"github.com/go-aah/forge/token"
+	"aahframework.org/forge/token"
 )
 
 func isSemicolonOrNewline(id token.TokenID) bool {

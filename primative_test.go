@@ -3,7 +3,7 @@ package forge_test
 import (
 	"testing"
 
-	"github.com/go-aah/forge"
+	"aahframework.org/forge"
 )
 
 func TestNewPrimative(t *testing.T) {

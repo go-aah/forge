@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/go-aah/forge"
+	"aahframework.org/forge"
 )
 
 func main() {
