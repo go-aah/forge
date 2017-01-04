@@ -99,7 +99,7 @@ func (section *Section) Exists(name string) bool {
 func (section *Section) Get(name string) (Value, error) {
 	value, ok := section.values[name]
 	var err error
-	if ok == false {
+	if !ok {
 		err = ErrNotExists
 	}
 	return value, err
@@ -233,7 +233,7 @@ func (section *Section) SetBoolean(name string, value bool) {
 
 	// Exists just update the value/type
 	if err == nil {
-		current.UpdateValue(value)
+		_ = current.UpdateValue(value)
 	} else {
 		section.values[name] = NewBoolean(value)
 	}
@@ -245,7 +245,7 @@ func (section *Section) SetFloat(name string, value float64) {
 
 	// Exists just update the value/type
 	if err == nil {
-		current.UpdateValue(value)
+		_ = current.UpdateValue(value)
 	} else {
 		section.values[name] = NewFloat(value)
 	}
@@ -257,7 +257,7 @@ func (section *Section) SetInteger(name string, value int64) {
 
 	// Exists just update the value/type
 	if err == nil {
-		current.UpdateValue(value)
+		_ = current.UpdateValue(value)
 	} else {
 		section.values[name] = NewInteger(value)
 	}
@@ -280,7 +280,7 @@ func (section *Section) SetString(name string, value string) {
 
 	// Exists just update the value/type
 	if err == nil {
-		current.UpdateValue(value)
+		_ = current.UpdateValue(value)
 	} else {
 		section.Set(name, NewString(value))
 	}

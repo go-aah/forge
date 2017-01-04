@@ -7,7 +7,8 @@ const (
 	// UNKNOWN ValueType
 	UNKNOWN ValueType = iota
 
-	primativesStart
+	//===primativesStart
+
 	// BOOLEAN ValueType
 	BOOLEAN
 	// FLOAT ValueType
@@ -18,16 +19,17 @@ const (
 	NULL
 	// STRING ValueType
 	STRING
-	primativesDnd
+	//===primativesEnd
 
-	complexStart
+	//===complexStart
+
 	// LIST ValueType
 	LIST
 	// REFERENCE ValueType
 	REFERENCE
 	// SECTION ValueType
 	SECTION
-	complexEnd
+	//===complexEnd
 )
 
 var valueTypes = [...]string{

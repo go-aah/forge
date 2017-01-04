@@ -40,7 +40,9 @@ func NewParser(reader io.Reader) *Parser {
 // NewFileParser will create and initialize a new Parser from a provided from a filename string
 func NewFileParser(filename string) (*Parser, error) {
 	reader, err := os.Open(filename)
-	defer reader.Close()
+	defer func() {
+		_ = reader.Close()
+	}()
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +67,7 @@ func (parser *Parser) hasParsed(search string) bool {
 func (parser *Parser) syntaxError(msg string) error {
 	msg = fmt.Sprintf(
 		"syntax error line <%d> column <%d>: %s",
-		parser.curTok.Line,
+		parser.curTok.Line+1,
 		parser.curTok.Column,
 		msg,
 	)
@@ -111,12 +113,12 @@ func (parser *Parser) parseList() ([]Value, error) {
 
 func (parser *Parser) parseReference(startingSection *Section, period bool) (Value, error) {
 	name := ""
-	if period == false {
+	if !period {
 		name = parser.curTok.Literal
 	}
 	for {
 		parser.readToken()
-		if parser.curTok.ID == token.PERIOD && period == false {
+		if parser.curTok.ID == token.PERIOD && !period {
 			period = true
 		} else if period && parser.curTok.ID == token.IDENTIFIER {
 			if len(name) > 0 {
@@ -127,7 +129,7 @@ func (parser *Parser) parseReference(startingSection *Section, period bool) (Val
 		} else if isSemicolonOrNewline(parser.curTok.ID) {
 			break
 		} else {
-			msg := fmt.Sprintf("expected ';' or '\n' instead found '%s'", parser.curTok.Literal)
+			msg := fmt.Sprintf("expected 'SEMICOLON' or 'NEWLINE' instead found '%s'", parser.curTok.Literal)
 			return nil, parser.syntaxError(msg)
 		}
 	}
@@ -195,7 +197,7 @@ func (parser *Parser) parseSettingValue() (Value, error) {
 			return value, err
 		}
 		value = NewList()
-		value.UpdateValue(listVal)
+		_ = value.UpdateValue(listVal)
 		readNext = false
 	default:
 		return value, parser.syntaxError(
@@ -215,8 +217,8 @@ func (parser *Parser) parseSetting(name string) error {
 	if err != nil {
 		return err
 	}
-	if isSemicolonOrNewline(parser.curTok.ID) == false {
-		msg := fmt.Sprintf("expected ';' or '\n' instead found '%s'", parser.curTok.Literal)
+	if !isSemicolonOrNewline(parser.curTok.ID) {
+		msg := fmt.Sprintf("expected 'SEMICOLON' or 'NEWLINE' instead found '%s'", parser.curTok.Literal)
 		return parser.syntaxError(msg)
 	}
 	parser.readToken()
@@ -233,8 +235,8 @@ func (parser *Parser) parseInclude() error {
 	pattern := parser.curTok.Literal
 
 	parser.readToken()
-	if isSemicolonOrNewline(parser.curTok.ID) == false {
-		msg := fmt.Sprintf("expected ';' or '\n' instead found '%s'", parser.curTok.Literal)
+	if !isSemicolonOrNewline(parser.curTok.ID) {
+		msg := fmt.Sprintf("expected 'SEMICOLON' or 'NEWLINE' instead found '%s'", parser.curTok.Literal)
 		return parser.syntaxError(msg)
 	}
 
@@ -254,13 +256,18 @@ func (parser *Parser) parseInclude() error {
 			continue
 		}
 		reader, err := os.Open(filename)
-		defer reader.Close()
+		defer func() {
+			_ = reader.Close()
+		}()
 		if err != nil {
 			return err
 		}
 		parser.curSection.AddInclude(filename)
 		parser.scanner = NewScanner(reader)
-		parser.parse()
+		err = parser.parse()
+		if err != nil {
+			return err
+		}
 		// Make sure to add the filename to the internal list to ensure we don't
 		// accidentally recursively include config files
 		parser.addFile(filename)
@@ -301,7 +308,10 @@ func (parser *Parser) parse() error {
 		case token.COMMENT:
 			parser.curSection.AddComment(tok.Literal)
 		case token.INCLUDE:
-			parser.parseInclude()
+			err := parser.parseInclude()
+			if err != nil {
+				return err
+			}
 		case token.IDENTIFIER:
 			if parser.curTok.ID == token.LBRACE {
 				err := parser.parseSection(tok.Literal)

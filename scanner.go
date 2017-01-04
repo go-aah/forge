@@ -122,7 +122,7 @@ func (scanner *Scanner) parseNumber(negative bool) {
 	digit := false
 	for {
 		scanner.readRune()
-		if scanner.curCh == '.' && digit == false {
+		if scanner.curCh == '.' && !digit {
 			scanner.curTok.ID = token.FLOAT
 			digit = true
 		} else if !isDigit(scanner.curCh) {
@@ -150,7 +150,7 @@ func (scanner *Scanner) parseString(delimiter rune) {
 	}
 	for {
 		scanner.readRune()
-		if escape == false {
+		if !escape {
 			// We haven't seen a backslash yet
 			if scanner.curCh == '\\' {
 				// A new backslash
