@@ -238,6 +238,10 @@ func (parser *Parser) parseInclude() error {
 		return parser.syntaxError(msg)
 	}
 
+	if !filepath.IsAbs(pattern) && len(parser.files) > 0 {
+		pattern = filepath.Join(filepath.Dir(parser.files[0]), filepath.Base(pattern))
+	}
+
 	filenames, err := filepath.Glob(pattern)
 	if err != nil {
 		return err
