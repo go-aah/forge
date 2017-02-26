@@ -67,7 +67,7 @@ func (parser *Parser) hasParsed(search string) bool {
 func (parser *Parser) syntaxError(msg string) error {
 	msg = fmt.Sprintf(
 		"syntax error line <%d> column <%d>: %s",
-		parser.curTok.Line+1,
+		parser.curTok.Line,
 		parser.curTok.Column,
 		msg,
 	)

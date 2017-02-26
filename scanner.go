@@ -50,8 +50,8 @@ type Scanner struct {
 func NewScanner(reader io.Reader) *Scanner {
 	scanner := &Scanner{
 		reader:  bufio.NewReader(reader),
-		curLine: 0,
-		curCol:  0,
+		curLine: 1,
+		curCol:  1,
 		newline: false,
 	}
 	scanner.readRune()
@@ -68,7 +68,7 @@ func (scanner *Scanner) readRune() {
 	}
 
 	nextCh, _, err := scanner.reader.ReadRune()
-	if err != nil {
+	if err == io.EOF || err != nil {
 		scanner.curCh = eof
 		return
 	}
