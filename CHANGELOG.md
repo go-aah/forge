@@ -1,4 +1,10 @@
-**v0.3.1** 2016-07-02 Jeevanandam M <jeeva@myjeeva.com> (Upstream refresh from v0.2.1)
+**v0.3.2** 2017-03-02 Jeevanandam M <jeeva@myjeeva.com>
+* Package name updated to aahframework.org/*
+* Travis build config update
+* Resolving relative path for `include` tag to parent conf directory
+* Fix line no and EOF check for scanner
+
+**v0.3.1** 2016-09-02 Jeevanandam M <jeeva@myjeeva.com> (Upstream refresh from v0.2.1)
 * Add new `func (*Section) Merge` to merge multiple `Section`s together.
 
 **v0.3.0**	2016-07-02	Jeevanandam M <jeeva@myjeeva.com>
