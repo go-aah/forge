@@ -1,3 +1,6 @@
+**v0.4 to v0.4.3** 2017-03-02 Jeevanandam M <jeeva@myjeeva.com>
+* Package versioning tested and released
+
 **v0.3.2** 2017-03-02 Jeevanandam M <jeeva@myjeeva.com>
 * Package name updated to aahframework.org/*
 * Travis build config update
