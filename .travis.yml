@@ -16,10 +16,10 @@ before_install:
   - bash prepare-aah-env.sh "" "forge"
 
 install:
-  - go get -v -t aahframework.org/forge/...
+  - go get -t aahframework.org/forge.v0/...
 
 script:
-  - cd $GOPATH/src/aahframework.org/forge
+  - cd $GOPATH/src/aahframework.org/forge.v0
   - bash go.test.sh
   - go test -bench . -benchmem
 
