@@ -3,20 +3,21 @@ language: go
 sudo: false
 
 branches:
-  only:
-    - master
-    - integration
+  # only:
+  #   - master
+  #   - integration
 
 go:
   - 1.6
   - 1.7
+  - 1.8
   - tip
 
 before_install:
-  - bash prepare-aah-env.sh "" "forge"
+  - bash prepare-aah-env.sh "forge" "v0"
 
 install:
-  - go get -t aahframework.org/forge.v0/...
+  - go get -v -t aahframework.org/forge.v0/...
 
 script:
   - cd $GOPATH/src/aahframework.org/forge.v0

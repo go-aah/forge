@@ -1,41 +1,29 @@
 #!/usr/bin/env bash
 
 set -e
-echo "Preparing aahframework custom environment for travis"
+echo "Preparing aah framework environment for travis"
 
 # export variables
 export PATH=$GOPATH/bin:$PATH
-export CURRENT_BRANCH="integration"
+export CURRENT_BRANCH=$TRAVIS_BRANCH
 export AAH_SRC_PATH=$GOPATH/src/aahframework.org
-
-# find out current git branch
-if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-  CURRENT_BRANCH="master"
-fi
+export AAH_PKG_NAME=$1
+export AAH_PKG_VERSION=$2
+export AAH_PKG=$AAH_PKG_NAME.$AAH_PKG_VERSION
 
 # create aah src path
 mkdir -p $AAH_SRC_PATH
 
-# get aah dependencies modules
-list_of_modules=$1
-if [ -n "$list_of_modules" ]; then
-  for module in $list_of_modules; do
-    git_path="git://github.com/go-aah/$module"
-    dest_path="$AAH_SRC_PATH/$module"
-    echo "Fetching $git_path"
-    git clone -b $CURRENT_BRANCH $git_path $dest_path
-  done
-fi
+# preparing go sources
+src_module_path=$GOPATH/src/github.com/go-aah/$AAH_PKG_NAME
+target_module_path=$AAH_SRC_PATH/$AAH_PKG
 
-# go get dependencies
-current_module=$2
-current_module_path=$AAH_SRC_PATH/$current_module
-cp -rf "$GOPATH/src/github.com/go-aah/$current_module" "$AAH_SRC_PATH"
+mkdir -p "$target_module_path"
+cp -a "$src_module_path/." "$target_module_path/"
 
 # update travis build directory
-export TRAVIS_BUILD_DIR=$current_module_path
+export TRAVIS_BUILD_DIR=$target_module_path
 echo "TRAVIS_BUILD_DIR: $TRAVIS_BUILD_DIR"
 
 # cleanup and change directory
 rm -rf $GOPATH/src/github.com/go-aah/*
-cd $current_module_path
