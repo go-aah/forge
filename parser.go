@@ -40,9 +40,6 @@ func NewParser(reader io.Reader) *Parser {
 // NewFileParser will create and initialize a new Parser from a provided from a filename string
 func NewFileParser(filename string) (*Parser, error) {
 	reader, err := os.Open(filename)
-	defer func() {
-		_ = reader.Close()
-	}()
 	if err != nil {
 		return nil, err
 	}
@@ -240,8 +237,9 @@ func (parser *Parser) parseInclude() error {
 		return parser.syntaxError(msg)
 	}
 
+	// if it is not absolute path, resolve to relative from parent config directory
 	if !filepath.IsAbs(pattern) && len(parser.files) > 0 {
-		pattern = filepath.Join(filepath.Dir(parser.files[0]), filepath.Base(pattern))
+		pattern = filepath.Join(filepath.Dir(parser.files[0]), filepath.Clean(pattern))
 	}
 
 	filenames, err := filepath.Glob(pattern)
@@ -256,9 +254,6 @@ func (parser *Parser) parseInclude() error {
 			continue
 		}
 		reader, err := os.Open(filename)
-		defer func() {
-			_ = reader.Close()
-		}()
 		if err != nil {
 			return err
 		}

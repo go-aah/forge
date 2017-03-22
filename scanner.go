@@ -44,12 +44,14 @@ type Scanner struct {
 	curCh   rune
 	newline bool
 	reader  *bufio.Reader
+	freader io.Reader
 }
 
 // NewScanner creates and initializes a new *Scanner from an io.Readerx
 func NewScanner(reader io.Reader) *Scanner {
 	scanner := &Scanner{
 		reader:  bufio.NewReader(reader),
+		freader: reader,
 		curLine: 1,
 		curCol:  1,
 		newline: false,
@@ -179,7 +181,7 @@ func (scanner *Scanner) parseComment() {
 	scanner.curTok.Literal = ""
 	for {
 		scanner.readRune()
-		if scanner.curCh == '\n' {
+		if scanner.curCh == '\n' || scanner.curCh == eof {
 			break
 		}
 		scanner.curTok.Literal += string(scanner.curCh)
@@ -221,6 +223,9 @@ func (scanner *Scanner) NextToken() token.Token {
 	case ch == eof:
 		scanner.curTok.ID = token.EOF
 		scanner.curTok.Literal = "EOF"
+		if f, ok := scanner.freader.(io.ReadCloser); ok {
+			_ = f.Close()
+		}
 	default:
 		scanner.readRune()
 		scanner.curTok.Literal = string(ch)
