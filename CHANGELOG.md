@@ -1,3 +1,8 @@
+**v0.4.4** 2017-03-22 Jeevanandam M <jeeva@myjeeva.com>
+	* Upstream Refresh
+	* File closer enhanced
+	* Relative subdirectory support added for `include`
+
 **v0.4 to v0.4.3** 2017-03-02 Jeevanandam M <jeeva@myjeeva.com>
 * Package versioning tested and released
 
