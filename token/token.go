@@ -11,7 +11,7 @@ type Token struct {
 
 func (this Token) String() string {
 	return fmt.Sprintf(
-		"ID<%s> Literal<%s> Line<%s> Column<%s>",
+		"ID<%v> Literal<%v> Line<%v> Column<%v>",
 		this.ID, this.Literal, this.Line, this.Column,
 	)
 }

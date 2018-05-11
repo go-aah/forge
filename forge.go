@@ -103,10 +103,12 @@ import (
 	"bytes"
 	"io"
 	"strings"
+
+	"aahframework.org/vfs.v0"
 )
 
 // Version represent current release version of forge.
-var Version = "0.4.4"
+var Version = "0.5"
 
 // ParseBytes takes a []byte representation of the config file, parses it
 // and responds with `*Section` and potentially an `error` if it cannot
@@ -115,11 +117,18 @@ func ParseBytes(data []byte) (*Section, error) {
 	return ParseReader(bytes.NewReader(data))
 }
 
-// ParseFile takes a string filename for the config file, parses it
+// ParseFile takes a filename for the config file, parses it
 // and responds with `*Section` and potentially an `error` if it cannot
-// properly parse the configf
+// properly parse the config
 func ParseFile(filename string) (*Section, error) {
-	parser, err := NewFileParser(filename)
+	return VFSParseFile(nil, filename)
+}
+
+// VFSParseFile takes a vfs and filename for the config file, parses it
+// and responds with `*Section` and potentially an `error` if it cannot
+// properly parse the config
+func VFSParseFile(fs *vfs.VFS, filename string) (*Section, error) {
+	parser, err := VFSNewFileParser(fs, filename)
 	if err != nil {
 		return nil, err
 	}
