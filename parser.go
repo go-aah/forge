@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path"
 	"path/filepath"
 	"strconv"
 
@@ -256,7 +257,7 @@ func (parser *Parser) parseInclude() error {
 
 	// if it is not absolute path, resolve to relative from parent config directory
 	if !filepath.IsAbs(pattern) && len(parser.files) > 0 {
-		pattern = filepath.Join(filepath.Dir(parser.files[0]), filepath.Clean(pattern))
+		pattern = path.Join(path.Dir(parser.files[0]), path.Clean(pattern))
 	}
 
 	filenames, err := vfs.Glob(parser.vfs, pattern)
