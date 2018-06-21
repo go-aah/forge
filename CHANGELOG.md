@@ -1,3 +1,6 @@
+**v0.5** 2018-06-20 Jeevanandam M <jeeva@myjeeva.com>
+	* Virtual FileSystem capability added `aahframework.org/vfs`
+
 **v0.4.4** 2017-03-22 Jeevanandam M <jeeva@myjeeva.com>
 	* Upstream Refresh
 	* File closer enhanced
