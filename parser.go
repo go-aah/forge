@@ -5,10 +5,12 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path"
 	"path/filepath"
 	"strconv"
 
 	"aahframework.org/forge.v0/token"
+	"aahframework.org/vfs.v0"
 )
 
 func isSemicolonOrNewline(id token.TokenID) bool {
@@ -17,6 +19,7 @@ func isSemicolonOrNewline(id token.TokenID) bool {
 
 // Parser is a struct to hold data necessary for parsing a config from a scanner
 type Parser struct {
+	vfs        *vfs.VFS
 	files      []string
 	settings   *Section
 	scanner    *Scanner
@@ -25,10 +28,18 @@ type Parser struct {
 	previous   []*Section
 }
 
-// NewParser will create and initialize a new Parser from a provided io.Reader
+// NewParser will create and initialize a new Parser from a
+// provided io.Reader
 func NewParser(reader io.Reader) *Parser {
+	return VFSNewParser(nil, reader)
+}
+
+// VFSNewParser will create and initialize a new Parser from a
+// provided vfs and io.Reader
+func VFSNewParser(vfs *vfs.VFS, reader io.Reader) *Parser {
 	settings := NewSection()
 	return &Parser{
+		vfs:        vfs,
 		files:      make([]string, 0),
 		scanner:    NewScanner(reader),
 		settings:   settings,
@@ -37,13 +48,20 @@ func NewParser(reader io.Reader) *Parser {
 	}
 }
 
-// NewFileParser will create and initialize a new Parser from a provided from a filename string
+// NewFileParser will create and initialize a new Parser from a
+// provided filename
 func NewFileParser(filename string) (*Parser, error) {
-	reader, err := os.Open(filename)
+	return VFSNewFileParser(nil, filename)
+}
+
+// VFSNewFileParser will create and initialize a new Parser from a
+// provided vfs and filename
+func VFSNewFileParser(fs *vfs.VFS, filename string) (*Parser, error) {
+	reader, err := vfs.Open(fs, filename)
 	if err != nil {
 		return nil, err
 	}
-	parser := NewParser(reader)
+	parser := VFSNewParser(fs, reader)
 	parser.addFile(filename)
 	return parser, nil
 }
@@ -239,10 +257,10 @@ func (parser *Parser) parseInclude() error {
 
 	// if it is not absolute path, resolve to relative from parent config directory
 	if !filepath.IsAbs(pattern) && len(parser.files) > 0 {
-		pattern = filepath.Join(filepath.Dir(parser.files[0]), filepath.Clean(pattern))
+		pattern = path.Join(path.Dir(parser.files[0]), path.Clean(pattern))
 	}
 
-	filenames, err := filepath.Glob(pattern)
+	filenames, err := vfs.Glob(parser.vfs, pattern)
 	if err != nil {
 		return err
 	}
@@ -253,7 +271,7 @@ func (parser *Parser) parseInclude() error {
 		if parser.hasParsed(filename) {
 			continue
 		}
-		reader, err := os.Open(filename)
+		reader, err := vfs.Open(parser.vfs, filename)
 		if err != nil {
 			return err
 		}

@@ -16,7 +16,7 @@ Forge is a configuration syntax and parser forked for [aah framework](https://aa
 
 You can see example usage in the `example` folder.
 
-```cfg
+```bash
 # example.cfg
 
 # Global directives
