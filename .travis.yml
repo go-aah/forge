@@ -14,7 +14,7 @@ go:
   - 1.x
   - tip
 
-go_import_path: aahframework.org/forge.v0
+go_import_path: github.com/go-aah/forge
 
 before_install:
   - bash <(curl -s https://aahframework.org/base-before-install) "vfs"

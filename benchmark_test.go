@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"aahframework.org/forge.v0"
+	"github.com/go-aah/forge"
 )
 
 var exampleConfigBytes = []byte(`

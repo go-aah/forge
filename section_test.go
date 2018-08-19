@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	"aahframework.org/forge.v0"
+	"github.com/go-aah/forge"
 )
 
 func TestSectionKeys(t *testing.T) {

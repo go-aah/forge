@@ -5,7 +5,7 @@ import (
 	"io"
 	"strings"
 
-	"aahframework.org/forge.v0/token"
+	"github.com/go-aah/forge/token"
 )
 
 var eof = rune(0)
