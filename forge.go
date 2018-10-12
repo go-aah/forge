@@ -104,7 +104,7 @@ import (
 	"io"
 	"strings"
 
-	"aahframe.work/aah/vfs"
+	"aahframe.work/vfs"
 )
 
 // Version represent current release version of forge.

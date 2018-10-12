@@ -10,7 +10,7 @@ import (
 	"strconv"
 
 	"github.com/go-aah/forge/token"
-	"aahframe.work/aah/vfs"
+	"aahframe.work/vfs"
 )
 
 func isSemicolonOrNewline(id token.TokenID) bool {
