@@ -3,14 +3,16 @@ forge
 
 [![Build Status](https://travis-ci.org/go-aah/forge.svg?branch=master)](https://travis-ci.org/go-aah/forge)
 [![codecov](https://codecov.io/gh/go-aah/forge/branch/master/graph/badge.svg)](https://codecov.io/gh/go-aah/forge)
-[![GoDoc](https://godoc.org/aahframework.org/forge.v0?status.svg)](https://godoc.org/aahframework.org/forge.v0)
+[![GoDoc](https://godoc.org/github.com/go-aah/forge?status.svg)](https://godoc.org/github.com/go-aah/forge)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Forge is a configuration syntax and parser forked for [aah framework](https://aahframework.org).
 
 ## Installation
 
-`go get -u aahframework.org/forge.v0`
+```bash
+require github.com/go-aah/forge v0.6.0
+```
 
 ## Example
 
@@ -64,7 +66,7 @@ import (
 	"fmt"
 	"json"
 
-	"aahframework.org/forge.v0"
+	"github.com/go-aah/forge"
 )
 
 func main() {
