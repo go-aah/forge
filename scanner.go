@@ -5,7 +5,7 @@ import (
 	"io"
 	"strings"
 
-	"aahframework.org/forge.v0/token"
+	"github.com/go-aah/forge/token"
 )
 
 var eof = rune(0)
@@ -223,9 +223,7 @@ func (scanner *Scanner) NextToken() token.Token {
 	case ch == eof:
 		scanner.curTok.ID = token.EOF
 		scanner.curTok.Literal = "EOF"
-		if f, ok := scanner.freader.(io.ReadCloser); ok {
-			_ = f.Close()
-		}
+		_ = close(scanner.freader)
 	default:
 		scanner.readRune()
 		scanner.curTok.Literal = string(ch)

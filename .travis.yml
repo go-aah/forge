@@ -10,12 +10,10 @@ branches:
     - /^v[0-9]\.[0-9]/
 
 go:
-  - 1.6
-  - 1.7
-  - 1.8
+  - 1.11.x
   - tip
 
-go_import_path: aahframework.org/forge.v0
+go_import_path: github.com/go-aah/forge
 
 script:
   - bash <(curl -s https://aahframework.org/go-test)

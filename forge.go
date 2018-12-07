@@ -106,7 +106,7 @@ import (
 )
 
 // Version represent current release version of forge.
-var Version = "0.4.4"
+var Version = "0.7.0"
 
 // ParseBytes takes a []byte representation of the config file, parses it
 // and responds with `*Section` and potentially an `error` if it cannot

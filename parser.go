@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"aahframework.org/forge.v0/token"
+	"github.com/go-aah/forge/token"
 )
 
 func isSemicolonOrNewline(id token.TokenID) bool {
@@ -39,7 +39,7 @@ func NewParser(reader io.Reader) *Parser {
 
 // NewFileParser will create and initialize a new Parser from a provided from a filename string
 func NewFileParser(filename string) (*Parser, error) {
-	reader, err := os.Open(filename)
+	reader, err := fs.Open(filename)
 	if err != nil {
 		return nil, err
 	}
@@ -242,7 +242,7 @@ func (parser *Parser) parseInclude() error {
 		pattern = filepath.Join(filepath.Dir(parser.files[0]), filepath.Clean(pattern))
 	}
 
-	filenames, err := filepath.Glob(pattern)
+	filenames, err := fs.Glob(pattern)
 	if err != nil {
 		return err
 	}
@@ -253,7 +253,7 @@ func (parser *Parser) parseInclude() error {
 		if parser.hasParsed(filename) {
 			continue
 		}
-		reader, err := os.Open(filename)
+		reader, err := fs.Open(filename)
 		if err != nil {
 			return err
 		}

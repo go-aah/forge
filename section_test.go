@@ -2,10 +2,9 @@ package forge_test
 
 import (
 	"encoding/json"
-	"fmt"
 	"testing"
 
-	"aahframework.org/forge.v0"
+	"github.com/go-aah/forge"
 )
 
 func TestSectionKeys(t *testing.T) {
@@ -111,7 +110,7 @@ prod {
 	}
 
 	bytes, _ := json.MarshalIndent(config1.ToMap(), "", "   ")
-	fmt.Println(string(bytes))
+	t.Log(string(bytes))
 }
 
 func TestMergeSectionFailSectionToField(t *testing.T) {
