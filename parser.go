@@ -39,7 +39,7 @@ func NewParser(reader io.Reader) *Parser {
 
 // NewFileParser will create and initialize a new Parser from a provided from a filename string
 func NewFileParser(filename string) (*Parser, error) {
-	reader, err := fs.Open(filename)
+	reader, err := open(filename)
 	if err != nil {
 		return nil, err
 	}
@@ -242,7 +242,7 @@ func (parser *Parser) parseInclude() error {
 		pattern = filepath.Join(filepath.Dir(parser.files[0]), filepath.Clean(pattern))
 	}
 
-	filenames, err := fs.Glob(pattern)
+	filenames, err := glob(pattern)
 	if err != nil {
 		return err
 	}
@@ -253,7 +253,7 @@ func (parser *Parser) parseInclude() error {
 		if parser.hasParsed(filename) {
 			continue
 		}
-		reader, err := fs.Open(filename)
+		reader, err := open(filename)
 		if err != nil {
 			return err
 		}
