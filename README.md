@@ -10,7 +10,9 @@ Forge is a configuration syntax and parser forked for [aah framework](https://aa
 
 ## Installation
 
-`go get -u github.com/go-aah/forge`
+```bash
+require github.com/go-aah/forge v0.8.0
+```
 
 ## Example
 

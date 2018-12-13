@@ -1,3 +1,6 @@
+**v0.8.0** 2018-12-12 Jeevanandam M <jeeva@myjeeva.com>
+	* Handling external and native fs more effectively
+
 **v0.7.0** 2018-12-07 Jeevanandam M <jeeva@myjeeva.com>
 	* Removed vfs module dependency
 	* Added FileSystem interface to extending possibility  
